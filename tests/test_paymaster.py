@@ -5,16 +5,16 @@ from eth_utils import keccak, remove_0x_prefix
 from web3 import Web3
 
 from tests.test_config import ZKSYNC_TEST_URL, PRIVATE_KEY2
-from zksync2.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.manage_contracts.paymaster_utils import PaymasterFlowEncoder
-from zksync2.manage_contracts.erc20_contract import ERC20Contract
-from zksync2.module.module_builder import ZkSyncBuilder
-from zksync2.core.types import Token, EthBlockParams, ZkBlockParams, PaymasterParams
+from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2.synchronous.manage_contracts import PaymasterFlowEncoder
+from zksync2.synchronous.manage_contracts import ERC20Contract
+from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2.shared.core import Token, EthBlockParams, ZkBlockParams, PaymasterParams
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.signer.eth_signer import PrivateKeyEthSigner
+from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
 from tests.contracts.utils import contract_path
-from zksync2.transaction.transaction_builders import TxFunctionCall, TxCreate2Contract
+from zksync2.shared.transaction import TxFunctionCall, TxCreate2Contract
 
 
 # mint tx hash of Test coins:

@@ -8,10 +8,10 @@ from eth_typing import HexStr
 from web3 import Web3, EthereumTesterProvider
 from web3.types import Nonce
 from tests.contracts.utils import contract_path
-from zksync2.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.module.request_types import EIP712Meta
-from zksync2.transaction.transaction_builders import TxCreateContract
-from zksync2.transaction.transaction712 import Transaction712
+from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2.synchronous.module import EIP712Meta
+from zksync2.shared.transaction import TxCreateContract
+from zksync2.shared.transaction import Transaction712
 
 PRIVATE_KEY2 = bytes.fromhex("fd1f96220fa3a40c46d65f81d61dd90af600746fd47e5c82673da937a48b38ef")
 

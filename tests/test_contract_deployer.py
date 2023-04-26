@@ -4,11 +4,11 @@ from eth_utils import add_0x_prefix
 from web3 import Web3
 from web3.types import Nonce
 from tests.test_config import TESTNET
-from zksync2.core.utils import hash_byte_code
+from zksync2.shared.core import hash_byte_code
 from tests.contracts.utils import contract_path
-from zksync2.manage_contracts.precompute_contract_deployer import PrecomputeContractDeployer
-from zksync2.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.module.module_builder import ZkSyncBuilder
+from zksync2.synchronous.manage_contracts import PrecomputeContractDeployer
+from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2.synchronous.module.module_builder import ZkSyncBuilder
 
 
 class ContractDeployerTests(TestCase):

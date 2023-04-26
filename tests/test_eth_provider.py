@@ -2,11 +2,11 @@ import os
 from unittest import TestCase, skip
 from web3 import Web3
 from tests.test_config import TESTNET, EnvPrivateKey
-from zksync2.core.types import Token, EthBlockParams
-from zksync2.module.module_builder import ZkSyncBuilder
+from zksync2.shared.core import Token, EthBlockParams
+from zksync2.synchronous.module.module_builder import ZkSyncBuilder
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.provider.eth_provider import EthereumProvider
+from zksync2.synchronous.provider import EthereumProvider
 
 
 def generate_random_salt() -> bytes:

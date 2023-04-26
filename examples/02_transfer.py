@@ -6,10 +6,10 @@ from eth_typing import HexStr, HexAddress
 from eth_utils import to_checksum_address
 from web3 import Web3
 
-from zksync2.core.types import ZkBlockParams, EthBlockParams
-from zksync2.module.module_builder import ZkSyncBuilder
-from zksync2.signer.eth_signer import PrivateKeyEthSigner
-from zksync2.transaction.transaction_builders import TxFunctionCall
+from zksync2.shared.core import ZkBlockParams, EthBlockParams
+from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
+from zksync2.shared.transaction import TxFunctionCall
 
 
 # Byte-format private key

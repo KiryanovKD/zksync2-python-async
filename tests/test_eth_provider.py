@@ -2,11 +2,12 @@ import os
 from unittest import TestCase, skip
 from web3 import Web3
 from tests.test_config import TESTNET, EnvPrivateKey
-from zksync2.shared.core import Token, EthBlockParams
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.core.types import Token, EthBlockParams
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
+from zksync2_async.module.zksync_provider import AsyncZkSyncProvider
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.synchronous.provider import EthereumProvider
+from zksync2_async.provider.provider import AsyncEthereumProvider
 
 
 def generate_random_salt() -> bytes:
@@ -18,23 +19,22 @@ class ZkSyncWeb3Tests(TestCase):
     def setUp(self) -> None:
         self.env = TESTNET
         env_key = EnvPrivateKey("ZKSYNC_KEY1")
-        self.zksync = ZkSyncBuilder.build(self.env.zksync_server)
-        self.eth_web3 = Web3(Web3.HTTPProvider(self.env.eth_server))
+        self.zksync = AsyncZkSyncBuilder.build(AsyncZkSyncProvider(self.env.zksync_server))
         self.account: LocalAccount = Account.from_key(env_key.key)
-        self.eth_provider = EthereumProvider(self.zksync, self.eth_web3, self.account)
+        self.eth_provider = AsyncEthereumProvider(self.zksync, self.account)
 
-    def test_deposit(self):
+    async def test_deposit(self):
         amount = Web3.to_wei(1, "ether")
         eth_token = Token.create_eth()
-        gas_price = self.eth_web3.eth.gas_price
-        before_deposit = self.eth_provider.get_l1_balance(eth_token, EthBlockParams.LATEST)
+        gas_price = await self.zksync.eth.gas_price
+        before_deposit = await self.eth_provider.get_l1_balance(eth_token, EthBlockParams.LATEST)
         print(f"Before: {before_deposit}")
-        l1_tx_receipt = self.eth_provider.deposit(token=Token.create_eth(),
+        l1_tx_receipt = await self.eth_provider.deposit(token=Token.create_eth(),
                                                   amount=amount,
                                                   gas_price=gas_price)
         # TODO: when L2 tx
 
-        after = self.eth_provider.get_l1_balance(eth_token, EthBlockParams.LATEST)
+        after = await self.eth_provider.get_l1_balance(eth_token, EthBlockParams.LATEST)
         print(f"After : {after}")
 
         self.assertEqual(1, l1_tx_receipt["status"])
@@ -48,12 +48,11 @@ class ZkSyncWeb3Tests(TestCase):
             6)
 
         amount_usdc = 100000
-        eth_provider = EthereumProvider(zksync_web3=self.zksync,
-                                        eth_web3=self.eth_web3,
+        eth_provider = AsyncEthereumProvider(zksync_web3=self.zksync,
                                         l1_account=self.account)
-        is_approved = eth_provider.approve_erc20(USDC_TOKEN, amount_usdc)
+        is_approved = await eth_provider.approve_erc20(USDC_TOKEN, amount_usdc)
         self.assertTrue(is_approved)
-        tx_receipt = eth_provider.deposit(USDC_TOKEN,
+        tx_receipt = await eth_provider.deposit(USDC_TOKEN,
                                           amount_usdc,
                                           self.account.address)
         self.assertEqual(1, tx_receipt["status"])

@@ -4,11 +4,11 @@ from eth_account import Account
 from eth_account.signers.local import LocalAccount
 from web3.types import TxParams, TxReceipt
 from examples.utils import EnvPrivateKey
-from zksync2.shared.core import EthBlockParams
-from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
-from zksync2.shared.transaction import TxCreateContract, TxFunctionCall
+from zksync2_async.core import EthBlockParams
+from zksync2_async.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.signer import PrivateKeyEthSigner
+from zksync2_async.transaction import TxCreateContract, TxFunctionCall
 
 ZKSYNC_TEST_URL = "http://127.0.0.1:3050"
 ETH_TEST_URL = "http://127.0.0.1:8545"

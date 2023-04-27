@@ -4,19 +4,20 @@ from eth_utils import add_0x_prefix
 from web3 import Web3
 from web3.types import Nonce
 from tests.test_config import TESTNET
-from zksync2.shared.core import hash_byte_code
+from zksync2_async.core.utils import hash_byte_code
 from tests.contracts.utils import contract_path
-from zksync2.synchronous.manage_contracts import PrecomputeContractDeployer
-from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.manage_contracts.precompute_contract_deployer import AsyncPrecomputeContractDeployer
+from zksync2_async.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
+from zksync2_async.module.zksync_provider import AsyncZkSyncProvider
 
 
 class ContractDeployerTests(TestCase):
 
     def setUp(self) -> None:
         env = TESTNET
-        self.web3 = ZkSyncBuilder.build(env.zksync_server)
-        self.contract_deployer = PrecomputeContractDeployer(self.web3)
+        self.web3 = AsyncZkSyncBuilder.build(AsyncZkSyncProvider(env.zksync_server))
+        self.contract_deployer = AsyncPrecomputeContractDeployer(self.web3)
         counter_contract = ContractEncoder.from_json(self.web3, contract_path("Counter.json"))
         self.counter_contract_bin = counter_contract.bytecode
 

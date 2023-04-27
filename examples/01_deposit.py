@@ -3,9 +3,9 @@ from eth_account.signers.local import LocalAccount
 from web3 import Web3
 
 from examples.utils import EnvPrivateKey
-from zksync2.shared.core import Token, EthBlockParams
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.synchronous.provider import EthereumProvider
+from zksync2_async.core import Token, EthBlockParams
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.synchronous.provider import EthereumProvider
 
 # ZKSYNC_TEST_URL = "http://127.0.0.1:3050"
 # ETH_TEST_URL = "http://127.0.0.1:8545"

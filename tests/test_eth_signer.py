@@ -1,6 +1,6 @@
 from unittest import TestCase
 from eth_typing import HexStr
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
+from zksync2_async.signer import PrivateKeyEthSigner
 from eth_account.signers.local import LocalAccount
 from eth_account import Account
 from eip712_structs import make_domain, EIP712Struct, String, Address

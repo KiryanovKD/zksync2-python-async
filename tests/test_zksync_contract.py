@@ -2,12 +2,12 @@ import os
 from unittest import TestCase
 from web3 import Web3
 from tests.test_config import TESTNET, EnvPrivateKey
-from zksync2.shared.core import RecommendedGasLimit
-from zksync2.synchronous.manage_contracts import ZkSyncContract
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.core import RecommendedGasLimit
+from zksync2_async.synchronous.manage_contracts import ZkSyncContract
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
+from zksync2_async.signer import PrivateKeyEthSigner
 
 
 def generate_random_salt() -> bytes:

@@ -5,20 +5,20 @@ from eth_typing import HexStr
 from web3 import Web3
 from web3.types import TxParams
 from web3.middleware import geth_poa_middleware
-from zksync2.shared.core import to_bytes
-from zksync2.synchronous.manage_contracts import PrecomputeContractDeployer
-from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.synchronous.manage_contracts.contract_factory import LegacyContractFactory
-from zksync2.synchronous.manage_contracts import ERC20Encoder, ERC20Contract
-from zksync2.synchronous.manage_contracts import NonceHolder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.shared.core import Token, ZkBlockParams, EthBlockParams, ADDRESS_DEFAULT
+from zksync2_async.core import to_bytes
+from zksync2_async.synchronous.manage_contracts import PrecomputeContractDeployer
+from zksync2_async.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2_async.synchronous.manage_contracts.contract_factory import LegacyContractFactory
+from zksync2_async.synchronous.manage_contracts import ERC20Encoder, ERC20Contract
+from zksync2_async.synchronous.manage_contracts import NonceHolder
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.core import Token, ZkBlockParams, EthBlockParams, ADDRESS_DEFAULT
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.synchronous.provider import EthereumProvider
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
+from zksync2_async.synchronous.provider import EthereumProvider
+from zksync2_async.signer import PrivateKeyEthSigner
 from tests.contracts.utils import contract_path
-from zksync2.shared.transaction import TxFunctionCall, TxCreateContract, TxCreate2Contract, TxWithdraw
+from zksync2_async.transaction import TxFunctionCall, TxCreateContract, TxCreate2Contract, TxWithdraw
 from test_config import TESTNET, EnvType, EnvPrivateKey
 
 

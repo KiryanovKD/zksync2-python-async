@@ -3,12 +3,13 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "zksync2"
-version = "0.4.0"
+name = "zksync2-async"
+version = "0.1.0"
 authors = [
-  { name="Viktor Yastrebov", email="vyastrebov@vareger.com" },
+    { name="Viktor Yastrebov", email="vyastrebov@vareger.com" },
+    { name="Kirill Kiryanov", email="kirill@kiryanovkd.com" },
 ]
-description = "zkSync2 python client sdk"
+description = "zkSync2 async python client sdk"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [

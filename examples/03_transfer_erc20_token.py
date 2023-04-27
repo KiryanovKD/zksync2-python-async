@@ -3,11 +3,11 @@ from eth_account.signers.local import LocalAccount
 from web3 import Web3
 
 from examples.utils import EnvPrivateKey
-from zksync2.shared.core import ZkBlockParams, ADDRESS_DEFAULT, Token
-from zksync2.synchronous.manage_contracts import ERC20Contract, ERC20Encoder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
-from zksync2.shared.transaction import TxFunctionCall
+from zksync2_async.core import ZkBlockParams, ADDRESS_DEFAULT, Token
+from zksync2_async.synchronous.manage_contracts import ERC20Contract, ERC20Encoder
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.signer import PrivateKeyEthSigner
+from zksync2_async.transaction import TxFunctionCall
 
 ZKSYNC_TEST_URL = "https://zksync2-testnet.zksync.dev"
 ETH_TEST_URL = "https://rpc.ankr.com/eth_goerli"

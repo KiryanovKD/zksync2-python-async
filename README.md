@@ -1,4 +1,4 @@
-# zkSync2 client sdk
+# zkSync2 Async client sdk (zkSync2 Fork)
 
 ## Contents
 - [Getting started](#getting-started)
@@ -21,7 +21,7 @@
 ### how to install
 
 ```console
-pip install zksync2
+pip install zksync2-async
 ```
 
 
@@ -40,10 +40,10 @@ Construction only needs the URL to the zkSync blockchain.
 Example:
 
 ```python
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
 
 ...
-web3 = ZkSyncBuilder.build("ZKSYNC_NET_URL")
+web3 = AsyncZkSyncBuilder.build("ZKSYNC_NET_URL")
 ```
 
 #### Module parameters and methods
@@ -105,12 +105,12 @@ zkSync2 already has implementation of signer. For constructing the instance it n
 Example:
 
 ```python
-from zksync2.shared.signer.eth_signer import PrivateKeyEthSigner
+from zksync2_async.signer import PrivateKeyEthSigner
 from eth_account import Account
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
 
 account = Account.from_key("PRIVATE_KEY")
-zksync_web3 = ZkSyncBuilder.build("ZKSYNC_NETWORK_URL")
+zksync_web3 = AsyncZkSyncBuilder.build("ZKSYNC_NETWORK_URL")
 ...
 chain_id = zksync_web3.zksync.chain_id
 signer = PrivateKeyEthSigner(account, chain_id)
@@ -182,17 +182,21 @@ Example:
 ```python
 
 from web3 import Web3
-from zksync2.synchronous.manage_contracts import ZkSyncContract
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
 
-zksync = ZkSyncBuilder.build('URL_TO_ZKSYNC_NETWORK')
-eth_web3 = Web3(Web3.HTTPProvider('URL_TO_ETH_NETWORK'))
+from zksync2_async.manage_contracts.zksync_contract import AsyncZkSyncContract
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
+from zksync2_async.module.zksync_provider import AsyncZkSyncProvider
+
+zksync_provider = AsyncZkSyncProvider('URL_TO_ZKSYNC_NETWORK')
+eth_web3_provider = Web3.HTTPProvider('URL_TO_ETH_NETWORK')
+
+zksync = AsyncZkSyncBuilder.build(zksync_provider, eth_web3_provider)
 account: LocalAccount = Account.from_key('YOUR_PRIVATE_KEY')
-zksync_contract = ZkSyncContract(zksync.zksync.zks_main_contract(),
-                                 eth_web3,
-                                 account)
+zksync_contract = AsyncZkSyncContract(zksync.zksync.zks_main_contract(),
+                                    zksync_provider,
+                                    account)
 ```
 
 
@@ -203,14 +207,16 @@ It's useful to precompute address for contract that is going to be deployer in t
 To construct it there are need only `account` and `Web3` object with integrated zksync module
 
 ```python
-from zksync2.synchronous.manage_contracts import NonceHolder
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
 
-zksync_web3 = ZkSyncBuilder.build("ZKSYNC_NETWORK_URL")
+from zksync2_async.module.module_builder import AsyncZkSyncBuilder
+from zksync2_async.module.zksync_provider import AsyncZkSyncProvider
+from zksync2_async.manage_contracts.nonce_holder import AsyncNonceHolder
+
+zksync_web3 = AsyncZkSyncBuilder.build(AsyncZkSyncProvider('URL_TO_ZKSYNC_NETWORK'))
 account: LocalAccount = Account.from_key("PRIVATE_KEY")
-nonce_holder = NonceHolder(zksync_web3, account)
+nonce_holder = AsyncNonceHolder(zksync_web3, account)
 ```
 
 
@@ -247,8 +253,8 @@ Construction: needs only web3 object with appended zksync module
 Example:
 
 ```python
-from zksync2.synchronous.manage_contracts import PrecomputeContractDeployer
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.manage_contracts. import PrecomputeContractDeployer
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
 
 zksync_web3 = ZkSyncBuilder.build("ZKSYNC_NETWORK_URL")
 deployer = PrecomputeContractDeployer(zksync_web3)
@@ -275,8 +281,8 @@ Example of construction:
 
 ```python
 from pathlib import Path
-from zksync2.shared.manage_contracts.contract_encoder_base import ContractEncoder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.manage_contracts.contract_encoder_base import ContractEncoder
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
 
 zksync_web3 = ZkSyncBuilder.build('ZKSYNC_TEST_URL')
 counter_contract = ContractEncoder.from_json(zksync_web3, Path("./Counter.json"))
@@ -300,8 +306,8 @@ Construction contract needs only Web3 Module object. It can be Eth or ZkSync.<br
 Example:
 
 ```python
-from zksync2.synchronous.manage_contracts import PaymasterFlowEncoder
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.synchronous.manage_contracts import PaymasterFlowEncoder
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
 
 zksync_web3 = ZkSyncBuilder.build("ZKSYNC_NETWORK_URL")
 paymaster_encoder = PaymasterFlowEncoder(zksync_web3)

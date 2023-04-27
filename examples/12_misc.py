@@ -1,8 +1,8 @@
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
 from examples.utils import EnvPrivateKey
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.shared.core import EthBlockParams
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.core import EthBlockParams
 
 ZKSYNC_TEST_URL = "http://127.0.0.1:3050"
 

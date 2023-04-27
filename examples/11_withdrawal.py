@@ -4,10 +4,10 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware
 
 from examples.utils import EnvPrivateKey
-from zksync2.shared.core import Token
-from zksync2.synchronous.module.module_builder import ZkSyncBuilder
-from zksync2.synchronous.provider import EthereumProvider
-from zksync2.shared.transaction import TxWithdraw
+from zksync2_async.core import Token
+from zksync2_async.synchronous.module.module_builder import ZkSyncBuilder
+from zksync2_async.synchronous.provider import EthereumProvider
+from zksync2_async.transaction import TxWithdraw
 
 ZKSYNC_TEST_URL = "http://127.0.0.1:3050"
 ETH_TEST_URL = "http://127.0.0.1:8545"

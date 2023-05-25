@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zksync2-async"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     { name="Viktor Yastrebov", email="vyastrebov@vareger.com" },
     { name="Kirill Kiryanov", email="kirill@kiryanovkd.com" },
